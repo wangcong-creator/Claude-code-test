@@ -27,6 +27,23 @@
       --mono:        'DM Mono', monospace;
       --serif:       'Crimson Pro', Georgia, serif;
       --display:     'Playfair Display', Georgia, serif;
+      --theme-transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    /* ── LIGHT MODE ─────────────────────────────────────────────── */
+    :root.light {
+      --bg:          #f5f0e6;
+      --bg-card:     #ede8da;
+      --rule:        #c8bfa8;
+      --rule-accent: #a06818;
+      --text-primary:  #1a1510;
+      --text-secondary: #6a5a48;
+      --text-faint:     #9c8c78;
+      --amber:       #a06818;
+      --amber-light: #c88830;
+      --amber-glow:  rgba(160, 104, 24, 0.10);
+      --red:         #b03030;
+      --green:       #3a6a3a;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,6 +58,7 @@
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
+      transition: var(--theme-transition);
     }
 
     /* Paper grain overlay */
@@ -224,12 +242,12 @@
       -webkit-appearance: none;
     }
 
-    .category-select option { background: #1a1814; }
+    .category-select option { background: var(--bg-card); }
 
     .add-btn {
       background: var(--amber);
       border: none;
-      color: #0e0d0b;
+      color: var(--bg);
       font-family: var(--mono);
       font-size: 0.6rem;
       font-weight: 400;
@@ -353,7 +371,7 @@
       top: 1px;
       width: 5px;
       height: 7px;
-      border: 1.5px solid #0e0d0b;
+      border: 1.5px solid var(--bg);
       border-top: none;
       border-left: none;
       transform: rotate(45deg);
@@ -534,6 +552,33 @@
     ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
 
+    /* ── THEME TOGGLE ──────────────────────────────────────────── */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--text-faint);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.55rem;
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .theme-toggle:hover {
+      color: var(--amber-light);
+      border-color: var(--amber);
+      background: var(--amber-glow);
+    }
+
+    .theme-toggle-icon { font-size: 0.75rem; line-height: 1; }
+
     /* ── RESPONSIVE ────────────────────────────────────────────── */
     @media (max-width: 480px) {
       .wrapper { padding: 0 1rem 4rem; }
@@ -554,6 +599,10 @@
         <span id="js-date">Friday, January 1</span>
         <span>Est. <span>mmxxv</span></span>
         <span id="js-time">00:00</span>
+        <button class="theme-toggle" id="js-theme-toggle" aria-label="Switch color theme" title="Toggle dark/light mode">
+          <span class="theme-toggle-icon" id="js-theme-icon">☀</span>
+          <span id="js-theme-label">Light</span>
+        </button>
       </div>
       <hr class="masthead-rule-top" />
       <hr class="masthead-rule-mid" />
@@ -826,6 +875,28 @@
     });
 
     $('js-clear-done').addEventListener('click', clearDone);
+
+    /* ── THEME ──────────────────────────────────────────────────── */
+    const THEME_KEY = 'daily-ledger-theme';
+
+    function applyTheme(theme) {
+      const isLight = theme === 'light';
+      document.documentElement.classList.toggle('light', isLight);
+      $('js-theme-icon').textContent  = isLight ? '☽' : '☀';
+      $('js-theme-label').textContent = isLight ? 'Dark' : 'Light';
+    }
+
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains('light');
+      const next = isLight ? 'dark' : 'light';
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    }
+
+    $('js-theme-toggle').addEventListener('click', toggleTheme);
+
+    // Load saved theme preference
+    applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
     /* ── INIT ───────────────────────────────────────────────────── */
     load();
