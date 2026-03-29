@@ -806,6 +806,7 @@
         'theme-light':       'Light',
         'theme-dark':        'Dark',
         'lang-btn':          '中文',
+        'lang-toggle-label': 'Switch language',
       },
       zh: {
         'page-title':        '每日清单',
@@ -843,6 +844,7 @@
         'theme-light':       '浅色',
         'theme-dark':        '深色',
         'lang-btn':          'EN',
+        'lang-toggle-label': '切换语言',
       }
     };
 
@@ -883,7 +885,7 @@
     function updateClock() {
       const now    = new Date();
       const locale = currentLang === 'zh' ? 'zh-CN' : 'en-US';
-      $('js-time').textContent = now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', hour12: false });
+      $('js-time').textContent = now.toLocaleTimeString(locale, { hour:'2-digit', minute:'2-digit', hour12: false });
       $('js-date').textContent = now.toLocaleDateString(locale, { weekday:'long', month:'long', day:'numeric' });
       $('js-year').textContent = now.getFullYear();
     }
@@ -1077,12 +1079,10 @@
 
     $('js-theme-toggle').addEventListener('click', toggleTheme);
 
-    // Load saved theme preference
-    applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-
     /* ── LANGUAGE ───────────────────────────────────────────────── */
-    function applyLang(lang) {
+    function applyLang(lang, persist = true) {
       currentLang = lang;
+      if (persist) localStorage.setItem(LANG_KEY, lang);
       document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
       document.title = TRANSLATIONS[lang]['page-title'];
 
@@ -1098,20 +1098,20 @@
         if (val !== undefined) el.placeholder = val;
       });
 
-      // Update lang toggle button label
+      // Update lang toggle button label and aria-label
       $('js-lang-label').textContent = TRANSLATIONS[lang]['lang-btn'];
+      $('js-lang-toggle').setAttribute('aria-label', TRANSLATIONS[lang]['lang-toggle-label']);
 
       // Re-sync theme label text in new language
       applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
-      // Re-render so section label and task category tags update
+      // Re-render so section label and task category tags update, then sync clock
       render();
+      updateClock();
     }
 
     function toggleLang() {
-      const next = currentLang === 'en' ? 'zh' : 'en';
-      localStorage.setItem(LANG_KEY, next);
-      applyLang(next);
+      applyLang(currentLang === 'en' ? 'zh' : 'en');
     }
 
     $('js-lang-toggle').addEventListener('click', toggleLang);
@@ -1132,10 +1132,8 @@
       save();
     }
 
-    render();
-
-    // Load saved language preference (after render so DOM is ready)
-    applyLang(localStorage.getItem(LANG_KEY) || 'en');
+    // applyLang handles initial render, clock sync, and theme application
+    applyLang(localStorage.getItem(LANG_KEY) || 'en', false);
   </script>
 </body>
 </html>
