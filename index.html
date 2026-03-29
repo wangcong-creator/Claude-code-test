@@ -529,15 +529,67 @@
     /* ── FOOTER ────────────────────────────────────────────────── */
     .site-footer {
       margin-top: 4rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--rule);
       text-align: center;
+    }
+
+    .footer-rule-thick {
+      height: 3px;
+      background: var(--text-faint);
+      opacity: 0.35;
+      margin: 0;
+    }
+
+    .footer-rule-thin {
+      height: 1px;
+      background: var(--rule);
+      margin: 4px 0;
+    }
+
+    .footer-ornament {
+      display: inline-block;
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--amber);
+      padding: 0.6rem 1rem;
+      letter-spacing: 0.3em;
+      opacity: 0.75;
+    }
+
+    .footer-body {
+      padding: 0.5rem 0 1.4rem;
+    }
+
+    .footer-title {
+      font-family: var(--display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-meta {
       font-family: var(--mono);
-      font-size: 0.55rem;
+      font-size: 0.65rem;
       font-weight: 300;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--text-faint);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .footer-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--amber);
+      display: inline-block;
+      opacity: 0.6;
     }
 
     /* ── ANIMATIONS ────────────────────────────────────────────── */
@@ -669,7 +721,22 @@
 
     <!-- ── FOOTER ─── -->
     <footer class="site-footer">
-      The Daily Ledger &mdash; Your private register &mdash; <span id="js-year">2025</span>
+      <div class="footer-rule-thick" role="separator" aria-hidden="true"></div>
+      <div class="footer-rule-thin" role="separator" aria-hidden="true"></div>
+      <div class="footer-ornament" aria-hidden="true">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+      <div class="footer-rule-thin" role="separator" aria-hidden="true"></div>
+      <div class="footer-body">
+        <div class="footer-title">The Daily Ledger</div>
+        <div class="footer-meta">
+          <span>Your private register</span>
+          <span class="footer-dot" aria-hidden="true"></span>
+          <span>Est. mmxxv</span>
+          <span class="footer-dot" aria-hidden="true"></span>
+          <span id="js-year">2025</span>
+        </div>
+      </div>
+      <div class="footer-rule-thin" role="separator" aria-hidden="true"></div>
+      <div class="footer-rule-thick" role="separator" aria-hidden="true"></div>
     </footer>
 
   </div>
