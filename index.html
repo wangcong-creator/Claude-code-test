@@ -533,15 +533,15 @@
     }
 
     .footer-rule-thick {
-      border: none;
-      border-top: 3px solid var(--text-faint);
+      height: 3px;
+      background: var(--text-faint);
       opacity: 0.35;
       margin: 0;
     }
 
     .footer-rule-thin {
-      border: none;
-      border-top: 1px solid var(--rule);
+      height: 1px;
+      background: var(--rule);
       margin: 4px 0;
     }
 
@@ -572,7 +572,7 @@
 
     .footer-meta {
       font-family: var(--mono);
-      font-size: 0.52rem;
+      font-size: 0.65rem;
       font-weight: 300;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -584,8 +584,8 @@
     }
 
     .footer-dot {
-      width: 2px;
-      height: 2px;
+      width: 3px;
+      height: 3px;
       border-radius: 50%;
       background: var(--amber);
       display: inline-block;
@@ -721,22 +721,22 @@
 
     <!-- ── FOOTER ─── -->
     <footer class="site-footer">
-      <hr class="footer-rule-thick" />
-      <hr class="footer-rule-thin" />
-      <div class="footer-ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
-      <hr class="footer-rule-thin" />
+      <div class="footer-rule-thick" role="separator" aria-hidden="true"></div>
+      <div class="footer-rule-thin" role="separator" aria-hidden="true"></div>
+      <div class="footer-ornament" aria-hidden="true">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+      <div class="footer-rule-thin" role="separator" aria-hidden="true"></div>
       <div class="footer-body">
         <div class="footer-title">The Daily Ledger</div>
         <div class="footer-meta">
           <span>Your private register</span>
-          <span class="footer-dot"></span>
+          <span class="footer-dot" aria-hidden="true"></span>
           <span>Est. mmxxv</span>
-          <span class="footer-dot"></span>
+          <span class="footer-dot" aria-hidden="true"></span>
           <span id="js-year">2025</span>
         </div>
       </div>
-      <hr class="footer-rule-thin" />
-      <hr class="footer-rule-thick" />
+      <div class="footer-rule-thin" role="separator" aria-hidden="true"></div>
+      <div class="footer-rule-thick" role="separator" aria-hidden="true"></div>
     </footer>
 
   </div>
