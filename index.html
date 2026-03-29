@@ -631,6 +631,28 @@
 
     .theme-toggle-icon { font-size: 0.75rem; line-height: 1; }
 
+    /* ── LANGUAGE TOGGLE ───────────────────────────────────────── */
+    .lang-toggle {
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--text-faint);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.55rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .lang-toggle:hover {
+      color: var(--amber-light);
+      border-color: var(--amber);
+      background: var(--amber-glow);
+    }
+
     /* ── RESPONSIVE ────────────────────────────────────────────── */
     @media (max-width: 480px) {
       .wrapper { padding: 0 1rem 4rem; }
@@ -655,31 +677,34 @@
           <span class="theme-toggle-icon" id="js-theme-icon">☀</span>
           <span id="js-theme-label">Light</span>
         </button>
+        <button class="lang-toggle" id="js-lang-toggle" aria-label="Switch language">
+          <span id="js-lang-label">中文</span>
+        </button>
       </div>
       <hr class="masthead-rule-top" />
       <hr class="masthead-rule-mid" />
       <h1 class="masthead-title">The Daily Ledger</h1>
-      <p class="masthead-subtitle">A personal register of things to be done</p>
+      <p class="masthead-subtitle" data-i18n="masthead-subtitle">A personal register of things to be done</p>
       <hr class="masthead-rule-bottom" />
     </header>
 
     <!-- ── STATS BAR ─── -->
     <div class="stats-bar">
-      <div class="stat">Tasks remaining&nbsp;<span class="stat-value" id="js-remaining">0</span></div>
-      <div class="stat">Completed&nbsp;<span class="stat-value" id="js-completed">0</span></div>
-      <div class="stat">Total&nbsp;<span class="stat-value" id="js-total">0</span></div>
+      <div class="stat"><span data-i18n="stat-remaining">Tasks remaining</span>&nbsp;<span class="stat-value" id="js-remaining">0</span></div>
+      <div class="stat"><span data-i18n="stat-completed">Completed</span>&nbsp;<span class="stat-value" id="js-completed">0</span></div>
+      <div class="stat"><span data-i18n="stat-total">Total</span>&nbsp;<span class="stat-value" id="js-total">0</span></div>
     </div>
 
     <!-- ── FILTERS ─── -->
     <div class="filter-row" role="group" aria-label="Filter tasks">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="active">Active</button>
-      <button class="filter-btn" data-filter="done">Done</button>
-      <button class="filter-btn" data-filter="urgent">Urgent</button>
-      <button class="filter-btn" data-filter="work">Work</button>
-      <button class="filter-btn" data-filter="personal">Personal</button>
-      <button class="filter-btn" data-filter="home">Home</button>
-      <button class="filter-btn" data-filter="idea">Idea</button>
+      <button class="filter-btn active" data-filter="all" data-i18n="filter-all">All</button>
+      <button class="filter-btn" data-filter="active" data-i18n="filter-active">Active</button>
+      <button class="filter-btn" data-filter="done" data-i18n="filter-done">Done</button>
+      <button class="filter-btn" data-filter="urgent" data-i18n="filter-urgent">Urgent</button>
+      <button class="filter-btn" data-filter="work" data-i18n="filter-work">Work</button>
+      <button class="filter-btn" data-filter="personal" data-i18n="filter-personal">Personal</button>
+      <button class="filter-btn" data-filter="home" data-i18n="filter-home">Home</button>
+      <button class="filter-btn" data-filter="idea" data-i18n="filter-idea">Idea</button>
     </div>
 
     <!-- ── ADD FORM ─── -->
@@ -689,17 +714,18 @@
         id="js-add-input"
         type="text"
         placeholder="Record a new entry…"
+        data-i18n-placeholder="input-placeholder"
         maxlength="200"
         required
       />
       <select class="category-select" id="js-category">
-        <option value="work">Work</option>
-        <option value="personal">Personal</option>
-        <option value="home">Home</option>
-        <option value="urgent">Urgent</option>
-        <option value="idea">Idea</option>
+        <option value="work" data-i18n="cat-work">Work</option>
+        <option value="personal" data-i18n="cat-personal">Personal</option>
+        <option value="home" data-i18n="cat-home">Home</option>
+        <option value="urgent" data-i18n="cat-urgent">Urgent</option>
+        <option value="idea" data-i18n="cat-idea">Idea</option>
       </select>
-      <button class="add-btn" type="submit">+ Enter</button>
+      <button class="add-btn" type="submit" data-i18n="add-btn">+ Enter</button>
     </form>
 
     <!-- ── TASK LIST ─── -->
@@ -712,11 +738,11 @@
 
     <div class="empty-state" id="js-empty">
       <span class="empty-glyph">✦</span>
-      <p class="empty-msg">The ledger is clear.</p>
+      <p class="empty-msg" data-i18n="empty-msg">The ledger is clear.</p>
     </div>
 
     <div class="footer-actions">
-      <button class="clear-btn" id="js-clear-done">Clear completed</button>
+      <button class="clear-btn" id="js-clear-done" data-i18n="clear-done">Clear completed</button>
     </div>
 
     <!-- ── FOOTER ─── -->
@@ -726,9 +752,9 @@
       <div class="footer-ornament" aria-hidden="true">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
       <div class="footer-rule-thin" role="separator" aria-hidden="true"></div>
       <div class="footer-body">
-        <div class="footer-title">The Daily Ledger</div>
+        <div class="footer-title" data-i18n="footer-title">The Daily Ledger</div>
         <div class="footer-meta">
-          <span>Your private register</span>
+          <span data-i18n="footer-register">Your private register</span>
           <span class="footer-dot" aria-hidden="true"></span>
           <span>Est. mmxxv</span>
           <span class="footer-dot" aria-hidden="true"></span>
@@ -742,10 +768,92 @@
   </div>
 
   <script>
+    /* ── TRANSLATIONS ───────────────────────────────────────────── */
+    const TRANSLATIONS = {
+      en: {
+        'page-title':        'The Daily Ledger',
+        'masthead-subtitle': 'A personal register of things to be done',
+        'stat-remaining':    'Tasks remaining',
+        'stat-completed':    'Completed',
+        'stat-total':        'Total',
+        'filter-all':        'All',
+        'filter-active':     'Active',
+        'filter-done':       'Done',
+        'filter-urgent':     'Urgent',
+        'filter-work':       'Work',
+        'filter-personal':   'Personal',
+        'filter-home':       'Home',
+        'filter-idea':       'Idea',
+        'input-placeholder': 'Record a new entry…',
+        'cat-work':          'Work',
+        'cat-personal':      'Personal',
+        'cat-home':          'Home',
+        'cat-urgent':        'Urgent',
+        'cat-idea':          'Idea',
+        'add-btn':           '+ Enter',
+        'section-all':       'All entries',
+        'section-active':    'Active entries',
+        'section-done':      'Completed entries',
+        'section-urgent':    'Urgent',
+        'section-work':      'Work',
+        'section-personal':  'Personal',
+        'section-home':      'Home',
+        'section-idea':      'Ideas',
+        'empty-msg':         'The ledger is clear.',
+        'clear-done':        'Clear completed',
+        'footer-title':      'The Daily Ledger',
+        'footer-register':   'Your private register',
+        'theme-light':       'Light',
+        'theme-dark':        'Dark',
+        'lang-btn':          '中文',
+        'lang-toggle-label': 'Switch language',
+      },
+      zh: {
+        'page-title':        '每日清单',
+        'masthead-subtitle': '个人待办事项清单',
+        'stat-remaining':    '待完成',
+        'stat-completed':    '已完成',
+        'stat-total':        '合计',
+        'filter-all':        '全部',
+        'filter-active':     '进行中',
+        'filter-done':       '已完成',
+        'filter-urgent':     '紧急',
+        'filter-work':       '工作',
+        'filter-personal':   '个人',
+        'filter-home':       '家庭',
+        'filter-idea':       '想法',
+        'input-placeholder': '记录新事项…',
+        'cat-work':          '工作',
+        'cat-personal':      '个人',
+        'cat-home':          '家庭',
+        'cat-urgent':        '紧急',
+        'cat-idea':          '想法',
+        'add-btn':           '+ 添加',
+        'section-all':       '全部事项',
+        'section-active':    '进行中',
+        'section-done':      '已完成',
+        'section-urgent':    '紧急',
+        'section-work':      '工作',
+        'section-personal':  '个人',
+        'section-home':      '家庭',
+        'section-idea':      '想法',
+        'empty-msg':         '清单为空。',
+        'clear-done':        '清除已完成',
+        'footer-title':      '每日清单',
+        'footer-register':   '您的私人清单',
+        'theme-light':       '浅色',
+        'theme-dark':        '深色',
+        'lang-btn':          'EN',
+        'lang-toggle-label': '切换语言',
+      }
+    };
+
     /* ── STATE ──────────────────────────────────────────────────── */
     const STORAGE_KEY = 'daily-ledger-tasks';
+    const LANG_KEY    = 'daily-ledger-lang';
     let tasks = [];
     let currentFilter = 'all';
+    let currentLang   = 'en';
 
     /* ── HELPERS ────────────────────────────────────────────────── */
     const $ = id => document.getElementById(id);
@@ -769,14 +877,16 @@
     }
 
     function formatDate(ts) {
-      return new Date(ts).toLocaleDateString('en-US', { month:'short', day:'numeric' });
+      const locale = currentLang === 'zh' ? 'zh-CN' : 'en-US';
+      return new Date(ts).toLocaleDateString(locale, { month:'short', day:'numeric' });
     }
 
     /* ── CLOCK ──────────────────────────────────────────────────── */
     function updateClock() {
-      const now = new Date();
-      $('js-time').textContent = now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', hour12: false });
-      $('js-date').textContent = now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+      const now    = new Date();
+      const locale = currentLang === 'zh' ? 'zh-CN' : 'en-US';
+      $('js-time').textContent = now.toLocaleTimeString(locale, { hour:'2-digit', minute:'2-digit', hour12: false });
+      $('js-date').textContent = now.toLocaleDateString(locale, { weekday:'long', month:'long', day:'numeric' });
       $('js-year').textContent = now.getFullYear();
     }
 
@@ -797,10 +907,15 @@
       }
     }
 
-    const sectionLabels = {
-      all: 'All entries', active: 'Active entries', done: 'Completed entries',
-      urgent: 'Urgent', work: 'Work', personal: 'Personal', home: 'Home', idea: 'Ideas'
-    };
+    function getSectionLabel(filter) {
+      const t = TRANSLATIONS[currentLang];
+      const map = {
+        all: t['section-all'], active: t['section-active'], done: t['section-done'],
+        urgent: t['section-urgent'], work: t['section-work'], personal: t['section-personal'],
+        home: t['section-home'], idea: t['section-idea']
+      };
+      return map[filter] || t['section-all'];
+    }
 
     /* ── RENDER ─────────────────────────────────────────────────── */
     function render() {
@@ -814,7 +929,7 @@
       $('js-remaining').textContent = tasks.length - done;
 
       // Section label
-      $('js-section-label').textContent = sectionLabels[currentFilter] || 'Entries';
+      $('js-section-label').textContent = getSectionLabel(currentFilter);
 
       // Empty state
       $('js-empty').classList.toggle('visible', visible.length === 0);
@@ -856,12 +971,13 @@
       const taskDate = new Date(task.createdAt).toDateString();
       const timeStr = today === taskDate ? formatTime(task.createdAt) : formatDate(task.createdAt);
 
+      const catLabel = TRANSLATIONS[currentLang][`cat-${task.category}`] || task.category;
       li.innerHTML = `
         <input class="task-check" type="checkbox" ${task.done ? 'checked' : ''} aria-label="Mark complete" />
         <div class="task-body">
           <div class="task-text">${escHtml(task.text)}</div>
           <div class="task-meta">
-            <span class="task-tag ${task.category}">${task.category}</span>
+            <span class="task-tag ${task.category}">${catLabel}</span>
             <span class="task-time">${timeStr}</span>
           </div>
         </div>
@@ -950,7 +1066,8 @@
       const isLight = theme === 'light';
       document.documentElement.classList.toggle('light', isLight);
       $('js-theme-icon').textContent  = isLight ? '☽' : '☀';
-      $('js-theme-label').textContent = isLight ? 'Dark' : 'Light';
+      const t = TRANSLATIONS[currentLang];
+      $('js-theme-label').textContent = isLight ? t['theme-dark'] : t['theme-light'];
     }
 
     function toggleTheme() {
@@ -962,8 +1079,42 @@
 
     $('js-theme-toggle').addEventListener('click', toggleTheme);
 
-    // Load saved theme preference
-    applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+    /* ── LANGUAGE ───────────────────────────────────────────────── */
+    function applyLang(lang, persist = true) {
+      currentLang = lang;
+      if (persist) localStorage.setItem(LANG_KEY, lang);
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      document.title = TRANSLATIONS[lang]['page-title'];
+
+      // Update all data-i18n text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const val = TRANSLATIONS[lang][el.dataset.i18n];
+        if (val !== undefined) el.textContent = val;
+      });
+
+      // Update placeholder attributes
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const val = TRANSLATIONS[lang][el.dataset.i18nPlaceholder];
+        if (val !== undefined) el.placeholder = val;
+      });
+
+      // Update lang toggle button label and aria-label
+      $('js-lang-label').textContent = TRANSLATIONS[lang]['lang-btn'];
+      $('js-lang-toggle').setAttribute('aria-label', TRANSLATIONS[lang]['lang-toggle-label']);
+
+      // Re-sync theme label text in new language
+      applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+
+      // Re-render so section label and task category tags update, then sync clock
+      render();
+      updateClock();
+    }
+
+    function toggleLang() {
+      applyLang(currentLang === 'en' ? 'zh' : 'en');
+    }
+
+    $('js-lang-toggle').addEventListener('click', toggleLang);
 
     /* ── INIT ───────────────────────────────────────────────────── */
     load();
@@ -981,7 +1132,8 @@
       save();
     }
 
-    render();
+    // applyLang handles initial render, clock sync, and theme application
+    applyLang(localStorage.getItem(LANG_KEY) || 'en', false);
   </script>
 </body>
 </html>
